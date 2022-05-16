@@ -1,8 +1,8 @@
-const UserModel = require('../models/user')
+const UserModel = require('../models/user');
 
 exports.create = async (req, res) => {
     if (!req.body.email && !req.body.firstName && !req.body.lastName && !req.body.phone) {
-        res.status(400).send({ message: "Content can not be empty!" });
+         return res.status(400).send({ message: "Content can not be empty!" });
     }
 
     const user = new UserModel({
@@ -24,6 +24,8 @@ exports.create = async (req, res) => {
     });
 };
 
+
+
 exports.getAllUsers = async (req, res) => {
     try {
         const user = await UserModel.find();
@@ -32,6 +34,7 @@ exports.getAllUsers = async (req, res) => {
         res.status(404).json({message: error.message});
     }
 };
+
 exports.getUser = async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.id);
@@ -40,6 +43,7 @@ exports.getUser = async (req, res) => {
         res.status(404).json({ message: error.message});
     }
 };
+
 exports.update = async (req, res) => {
     if(!req.body) {
         res.status(400).send({
